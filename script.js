@@ -853,12 +853,32 @@ function saveChapter(e) {
 
   const id = document.getElementById("editingChapterId").value;
   const number = parseInt(document.getElementById("chapterNumber").value);
-  const title = document.getElementById("chapterTitle").value;
-  const excerpt = document.getElementById("chapterExcerpt").value;
-  const content = document.getElementById("chapterContent").value;
+  const title = document.getElementById("chapterTitle").value.trim();
+  const excerpt = document.getElementById("chapterExcerpt").value.trim();
+  const content = document.getElementById("chapterContent").value.trim();
   const publishDate =
     document.getElementById("chapterPublishDate").value ||
     new Date().toISOString().split("T")[0];
+
+  if (number < 1) {
+    showNotification("❌ O número do capítulo deve ser maior que 0");
+    return;
+  }
+
+  if (!title) {
+    showNotification("❌ O título é obrigatório");
+    return;
+  }
+
+  if (!excerpt) {
+    showNotification("❌ O excerto é obrigatório");
+    return;
+  }
+
+  if (!content) {
+    showNotification("❌ O conteúdo é obrigatório");
+    return;
+  }
 
   const formattedContent = content
     .split("\n\n")
@@ -890,7 +910,7 @@ function saveChapter(e) {
   document.getElementById("chapterForm").reset();
   document.getElementById("editingChapterId").value = "";
 
-  showNotification("Capítulo salvo com sucesso!");
+  showNotification("✅ Capítulo salvo com sucesso!");
 }
 
 function editChapter(id) {
@@ -928,3 +948,78 @@ function cancelEdit() {
   document.getElementById("chapterForm").reset();
   document.getElementById("editingChapterId").value = "";
 }
+
+function filterChapters() {
+  const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+  const cards = document.querySelectorAll(".chapter-card");
+
+  cards.forEach((card) => {
+    const title = card
+      .querySelector(".chapter-title")
+      .textContent.toLowerCase();
+    const excerpt = card
+      .querySelector(".chapter-excerpt")
+      .textContent.toLowerCase();
+
+    if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
+
+function sortChapters(sortBy) {
+  let sorted = [...chapters];
+
+  switch (sortBy) {
+    case "number":
+      sorted.sort((a, b) => a.number - b.number);
+      break;
+    case "date":
+      sorted.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+      break;
+    case "rating":
+      sorted.sort((a, b) => getChapterRating(b.id) - getChapterRating(a.id));
+      break;
+  }
+
+  chapters = sorted;
+  renderChapters();
+
+  document
+    .querySelectorAll(".sort-btn")
+    .forEach((btn) => btn.classList.remove("active"));
+  document
+    .getElementById("sort" + sortBy.charAt(0).toUpperCase() + sortBy.slice(1))
+    .classList.add("active");
+}
+
+function restoreBackup() {
+  const backup = localStorage.getItem("dsc_backup");
+  if (backup) {
+    const data = JSON.parse(backup);
+    if (
+      confirm(
+        `Restaurar backup de ${new Date(data.timestamp).toLocaleString()}?`
+      )
+    ) {
+      chapters = data.chapters;
+      saveChaptersToStorage();
+      showNotification("Backup restaurado com sucesso!");
+      window.location.reload();
+    }
+  } else {
+    showNotification("Nenhum backup encontrado");
+  }
+}
+
+setInterval(() => {
+  if (chapters.length > 0) {
+    const backup = {
+      chapters: chapters,
+      timestamp: new Date().toISOString(),
+    };
+    localStorage.setItem("dsc_backup", JSON.stringify(backup));
+  }
+}, 300000);

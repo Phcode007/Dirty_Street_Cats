@@ -48,9 +48,37 @@
 
     <section class="chapters-section">
       <h2 class="section-title">Capítulos</h2>
-      <div class="chapters-grid" id="chaptersGrid">
-        <!-- Os capítulos serão carregados aqui pelo JavaScript -->
+
+      <div class="search-container">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="🔍 Buscar capítulos..."
+          onkeyup="filterChapters()"
+        />
       </div>
+
+      <div class="sort-controls">
+        <button
+          onclick="sortChapters('number')"
+          class="sort-btn active"
+          id="sortNumber"
+        >
+          <i class="fas fa-sort-numeric-down"></i> Por Número
+        </button>
+        <button onclick="sortChapters('date')" class="sort-btn" id="sortDate">
+          <i class="fas fa-calendar"></i> Mais Recentes
+        </button>
+        <button
+          onclick="sortChapters('rating')"
+          class="sort-btn"
+          id="sortRating"
+        >
+          <i class="fas fa-star"></i> Melhor Avaliados
+        </button>
+      </div>
+
+      <div class="chapters-grid" id="chaptersGrid"></div>
     </section>
 
     <footer>

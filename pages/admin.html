@@ -52,7 +52,22 @@
       <div class="analytics-dashboard" id="analyticsDashboard"></div>
 
       <div class="admin-form">
-        <h3>Adicionar/Editar Capítulo</h3>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <h3>Adicionar/Editar Capítulo</h3>
+          <button
+            onclick="restoreBackup()"
+            class="submit-btn"
+            style="background: var(--highlight1); padding: 0.5rem 1rem"
+          >
+            <i class="fas fa-history"></i> Restaurar Backup
+          </button>
+        </div>
         <form id="chapterForm" onsubmit="saveChapter(event)">
           <input type="hidden" id="editingChapterId" />
 
@@ -68,6 +83,7 @@
               id="chapterTitle"
               required
               placeholder="Ex: Origem"
+              minlength="3"
             />
           </div>
 
@@ -77,21 +93,25 @@
           </div>
 
           <div class="form-group">
-            <label for="chapterExcerpt">Excerto</label>
+            <label for="chapterExcerpt">Excerto (mínimo 20 caracteres)</label>
             <textarea
               id="chapterExcerpt"
               rows="3"
               required
               placeholder="Resumo do capítulo..."
+              minlength="20"
             ></textarea>
           </div>
 
           <div class="form-group">
-            <label for="chapterContent">Conteúdo Completo</label>
+            <label for="chapterContent"
+              >Conteúdo Completo (mínimo 100 caracteres)</label
+            >
             <textarea
               id="chapterContent"
               required
               placeholder="Conteúdo do capítulo..."
+              minlength="100"
             ></textarea>
           </div>
 
@@ -120,5 +140,19 @@
     </footer>
 
     <script src="../script.js"></script>
+    <script>
+      const adminPassword = "eldor2025";
+      const isAuthenticated = sessionStorage.getItem("dsc_admin_auth");
+
+      if (!isAuthenticated) {
+        const password = prompt("Digite a senha de administrador:");
+        if (password !== adminPassword) {
+          alert("Senha incorreta!");
+          window.location.href = "../index.html";
+        } else {
+          sessionStorage.setItem("dsc_admin_auth", "true");
+        }
+      }
+    </script>
   </body>
 </html>

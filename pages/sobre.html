@@ -58,18 +58,25 @@
         <div class="eldor-map">
           <h3>Mapa de Eldor</h3>
           <img
-            src="../map/eldor.jpg"
+            src="https://via.placeholder.com/800x600/1a1a1a/999999?text=MAPA+DE+ELDOR+(EM+DESENVOLVIMENTO)"
             alt="Mapa de Eldor"
             id="eldorMap"
-            usemap="#eldormap"
+            style="
+              width: 100%;
+              max-width: 800px;
+              border: 2px solid var(--tertiary);
+            "
           />
-          <map name="eldormap">
-            <area shape="rect" coords="400,300,500,400" alt="crystallis" />
-            <area shape="rect" coords="400,500,500,600" alt="wyvernia" />
-            <area shape="rect" coords="600,300,700,400" alt="serinrando" />
-            <area shape="rect" coords="300,100,400,200" alt="frygid" />
-            <area shape="rect" coords="100,300,200,400" alt="westelf" />
-          </map>
+          <p
+            style="
+              margin-top: 1rem;
+              color: var(--highlight1);
+              font-style: italic;
+            "
+          >
+            <i class="fas fa-map-marked-alt"></i> Mapa interativo em
+            desenvolvimento
+          </p>
         </div>
 
         <div class="story-timeline" id="storyTimeline"></div>
