@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sobre - Dirty Street Cats</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <header>
+      <nav>
+        <div class="logo" onclick="window.location.href='../index.html'">
+          DIRTY STREET CATS
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="../index.html">Início</a></li>
+          <li><a href="capitulos.html">Capítulos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="autor.html">Autor</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+        <div class="nav-controls">
+          <button
+            class="icon-btn"
+            onclick="toggleDarkMode()"
+            title="Alternar tema"
+          >
+            <i class="fas fa-moon" id="themeIcon"></i>
+          </button>
+          <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <section class="about-section">
+      <div class="about-content">
+        <h2 class="section-title">Sobre o Mundo de Eldor</h2>
+
+        <p class="about-text">
+          Eldor é um mundo onde a magia permeia cada sombra e a luz da esperança
+          brilha nas almas mais improváveis. Em suas ruas sujas e esquecidas,
+          gatos de rua carregam destinos épicos, lutando contra forças além da
+          compreensão mortal.
+        </p>
+
+        <p class="about-text">
+          Nas vielas estreitas e becos esquecidos, onde a civilização abandona
+          aqueles que não têm voz, uma sociedade secreta de felinos desperta.
+          Eles são os guardiões silenciosos, os observadores noturnos, os
+          portadores de segredos ancestrais que a humanidade há muito esqueceu.
+        </p>
+
+        <p class="about-text">
+          "Dirty Street Cats" é uma jornada pela sobrevivência, pela lealdade e
+          pelo poder escondido nos lugares mais obscuros. Prepare-se para
+          adentrar um universo onde cada esquina guarda um segredo e cada
+          batalha define o destino de mundos.
+        </p>
+
+        <p class="about-text">
+          Em Eldor, a linha entre herói e vilão é tênue como a névoa que cobre
+          as ruas ao amanhecer. Aqui, até mesmo os mais humildes podem se tornar
+          lendas, e os mais poderosos podem cair nas sombras.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Dirty Street Cats. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>

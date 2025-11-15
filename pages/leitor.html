@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leitura - Dirty Street Cats</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <header>
+      <nav>
+        <div class="logo" onclick="window.location.href='../index.html'">
+          DIRTY STREET CATS
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="../index.html">Início</a></li>
+          <li><a href="capitulos.html">Capítulos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="autor.html">Autor</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+        <div class="nav-controls">
+          <button
+            class="icon-btn"
+            onclick="toggleDarkMode()"
+            title="Alternar tema"
+          >
+            <i class="fas fa-moon" id="themeIcon"></i>
+          </button>
+          <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="reader-container">
+      <div class="reader-header">
+        <p class="chapter-number" id="readerChapterNum">CAPÍTULO 1</p>
+        <h1 class="chapter-title" id="readerChapterTitle">Origem</h1>
+      </div>
+
+      <div class="reader-controls">
+        <button
+          class="font-size-btn"
+          onclick="changeFontSize('small')"
+          title="Fonte pequena"
+        >
+          A
+        </button>
+        <button
+          class="font-size-btn"
+          onclick="changeFontSize('medium')"
+          title="Fonte média"
+        >
+          A
+        </button>
+        <button
+          class="font-size-btn"
+          onclick="changeFontSize('large')"
+          title="Fonte grande"
+        >
+          A
+        </button>
+      </div>
+
+      <div class="reader-content font-medium" id="readerContent">
+        <!-- O conteúdo do capítulo será carregado aqui -->
+      </div>
+
+      <div class="reader-nav">
+        <a
+          href="javascript:void(0)"
+          class="nav-btn"
+          id="prevBtn"
+          onclick="navigateChapter('prev')"
+        >
+          <i class="fas fa-arrow-left"></i> Capítulo Anterior
+        </a>
+        <a
+          href="javascript:void(0)"
+          class="nav-btn"
+          id="nextBtn"
+          onclick="navigateChapter('next')"
+        >
+          Próximo Capítulo <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Dirty Street Cats. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>

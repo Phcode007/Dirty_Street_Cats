@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel Admin - Dirty Street Cats</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <header>
+      <nav>
+        <div class="logo" onclick="window.location.href='../index.html'">
+          DIRTY STREET CATS
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="../index.html">Início</a></li>
+          <li><a href="capitulos.html">Capítulos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="autor.html">Autor</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+        <div class="nav-controls">
+          <button
+            class="icon-btn"
+            onclick="toggleDarkMode()"
+            title="Alternar tema"
+          >
+            <i class="fas fa-moon" id="themeIcon"></i>
+          </button>
+          <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="admin-container">
+      <h2 class="section-title">Painel Administrativo</h2>
+
+      <!-- FORMULÁRIO DE ADICIONAR/EDITAR -->
+      <div class="admin-form">
+        <h3>Adicionar/Editar Capítulo</h3>
+        <form id="chapterForm" onsubmit="saveChapter(event)">
+          <input type="hidden" id="editingChapterId" />
+
+          <div class="form-group">
+            <label for="chapterNumber">Número do Capítulo</label>
+            <input type="number" id="chapterNumber" required min="1" />
+          </div>
+
+          <div class="form-group">
+            <label for="chapterTitle">Título do Capítulo</label>
+            <input
+              type="text"
+              id="chapterTitle"
+              required
+              placeholder="Ex: Origem"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="chapterExcerpt"
+              >Excerto (resumo curto para o card)</label
+            >
+            <textarea
+              id="chapterExcerpt"
+              rows="3"
+              required
+              placeholder="Escreva um resumo atraente do capítulo..."
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="chapterContent">Conteúdo Completo do Capítulo</label>
+            <textarea
+              id="chapterContent"
+              required
+              placeholder="Escreva o conteúdo do capítulo. Use duas quebras de linha para separar parágrafos."
+            ></textarea>
+            <small
+              style="
+                color: var(--highlight1);
+                display: block;
+                margin-top: 0.5rem;
+              "
+            >
+              💡 Dica: Deixe uma linha em branco entre parágrafos. Exemplo:<br />
+              Primeiro parágrafo aqui.<br />
+              <br />
+              Segundo parágrafo aqui.
+            </small>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            <i class="fas fa-save"></i> SALVAR CAPÍTULO
+          </button>
+          <button
+            type="button"
+            class="submit-btn"
+            onclick="cancelEdit()"
+            style="background: var(--highlight1)"
+          >
+            <i class="fas fa-times"></i> CANCELAR
+          </button>
+        </form>
+      </div>
+
+      <!-- LISTA DE CAPÍTULOS PUBLICADOS -->
+      <div class="admin-form">
+        <h3>Capítulos Publicados</h3>
+        <ul class="chapters-list" id="adminChaptersList">
+          <!-- Lista será preenchida pelo JavaScript -->
+        </ul>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Dirty Street Cats. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>

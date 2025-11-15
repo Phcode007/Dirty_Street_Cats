@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sobre o Autor - Dirty Street Cats</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <header>
+      <nav>
+        <div class="logo" onclick="window.location.href='../index.html'">
+          DIRTY STREET CATS
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="../index.html">Início</a></li>
+          <li><a href="capitulos.html">Capítulos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="autor.html">Autor</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+        <div class="nav-controls">
+          <button
+            class="icon-btn"
+            onclick="toggleDarkMode()"
+            title="Alternar tema"
+          >
+            <i class="fas fa-moon" id="themeIcon"></i>
+          </button>
+          <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <section class="about-section">
+      <div class="about-content">
+        <h2 class="section-title">Sobre o Autor</h2>
+
+        <p class="about-text">
+          Criador do universo de Eldor, o autor tece narrativas épicas que
+          mesclam fantasia sombria com elementos do cotidiano urbano,
+          transformando o ordinário em extraordinário.
+        </p>
+
+        <p class="about-text">
+          Fascinado pelas histórias não contadas que habitam as sombras de nossa
+          realidade, encontrou nos gatos de rua a inspiração perfeita para
+          explorar temas de sobrevivência, lealdade e o poder oculto nos lugares
+          mais improváveis.
+        </p>
+
+        <p class="about-text">
+          Com uma paixão por histórias que desafiam convenções, cada palavra é
+          cuidadosamente escolhida para transportar o leitor a um mundo onde o
+          impossível se torna realidade, onde gatos comuns carregam destinos
+          épicos e onde a magia existe nas frestas entre nosso mundo e o
+          desconhecido.
+        </p>
+
+        <p class="about-text">
+          "Dirty Street Cats" é mais que uma história — é uma carta de amor
+          àqueles que a sociedade esquece, um tributo aos guerreiros silenciosos
+          que habitam nossas ruas e um lembrete de que a grandeza pode nascer
+          nos lugares mais inesperados.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Dirty Street Cats. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>

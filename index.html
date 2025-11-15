@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dirty Street Cats - Uma história de Eldor</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <header>
+      <nav>
+        <div class="logo" onclick="window.location.href='index.html'">
+          DIRTY STREET CATS
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="pages/capitulos.html">Capítulos</a></li>
+          <li><a href="pages/sobre.html">Sobre</a></li>
+          <li><a href="pages/autor.html">Autor</a></li>
+          <li><a href="pages/admin.html">Admin</a></li>
+        </ul>
+        <div class="nav-controls">
+          <button
+            class="icon-btn"
+            onclick="toggleDarkMode()"
+            title="Alternar tema"
+          >
+            <i class="fas fa-moon" id="themeIcon"></i>
+          </button>
+          <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content fade-in">
+        <h1 class="hero-title">Dirty Street Cats</h1>
+        <p class="hero-subtitle">Uma história de Eldor</p>
+        <a href="pages/capitulos.html" class="cta-button">COMEÇAR A LER</a>
+      </div>
+    </section>
+
+    <!-- NOVA SEÇÃO: CAPÍTULO EM DESTAQUE -->
+    <section class="featured-chapter">
+      <div class="container">
+        <h2 class="section-title">Último Capítulo</h2>
+        <div class="chapter-preview">
+          <h3>Capítulo 1: Origem</h3>
+          <p class="excerpt">
+            "No coração sombrio de Eldor, onde a luz raramente penetra as vielas
+            estreitas, uma lenda começa a se formar entre os gatos de rua..."
+          </p>
+          <a
+            href="pages/leitor.html"
+            class="read-btn"
+            onclick="setCurrentChapter(1)"
+            >Continuar Lendo</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- NOVA SEÇÃO: SINOPSE -->
+    <section class="synopsis">
+      <div class="container">
+        <h2 class="section-title">Sinopse</h2>
+        <p class="about-text">
+          Em Eldor, um mundo onde magia e destino se entrelaçam, a morte da
+          rainha Catarina desencadeia uma cadeia de eventos que ameaça todo o
+          reino. Enquanto o rei Hector enfrenta seu luto, forças sombrias se
+          movem nas sombras...
+        </p>
+        <p class="about-text">
+          A queda do dragão Agrion contaminou a nação de Wyvernia, transformando
+          seus habitantes em draconídeos cruéis. Agora, liderados pelo sábio
+          corrompido Urok, eles marcham para conquistar Crystallis e todo Eldor.
+        </p>
+        <p class="about-text">
+          Uma batalha épica se aproxima, onde heróis improváveis surgirão das
+          ruas mais sujas, e o destino do mundo será decidido por aqueles que a
+          sociedade esqueceu.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Dirty Street Cats. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
