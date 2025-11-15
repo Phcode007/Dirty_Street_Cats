@@ -1,6 +1,3 @@
-/* ========================================
-   RESET E VARIÁVEIS
-======================================== */
 * {
   margin: 0;
   padding: 0;
@@ -34,9 +31,6 @@ body.dark-mode {
   color: var(--light-text);
 }
 
-/* ========================================
-   HEADER & NAVEGAÇÃO
-======================================== */
 header {
   position: fixed;
   top: 0;
@@ -107,6 +101,15 @@ body.dark-mode .nav-links a::after {
   width: 100%;
 }
 
+.nav-links a.active {
+  color: var(--highlight1);
+  font-weight: 700;
+}
+
+.nav-links a.active::after {
+  width: 100%;
+}
+
 .nav-controls {
   display: flex;
   gap: 1rem;
@@ -146,9 +149,6 @@ body.dark-mode .hamburger span {
   background: var(--light-text);
 }
 
-/* ========================================
-   HERO SECTION
-======================================== */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -236,14 +236,133 @@ body.dark-mode .cta-button {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* ========================================
-   SEÇÃO DE CAPÍTULOS
-======================================== */
-.chapters-section {
+.featured-chapter {
   padding: 6rem 5%;
-  max-width: 1200px;
+  background: var(--alt-bg);
+  text-align: center;
+}
+
+body.dark-mode .featured-chapter {
+  background: var(--secondary);
+}
+
+.featured-chapter .container {
+  max-width: 800px;
   margin: 0 auto;
-  min-height: 100vh;
+}
+
+.chapter-preview {
+  background: var(--light-bg);
+  padding: 3rem;
+  border: 1px solid var(--tertiary);
+  margin-top: 2rem;
+  position: relative;
+}
+
+body.dark-mode .chapter-preview {
+  background: var(--primary);
+  border-color: var(--highlight1);
+}
+
+.chapter-preview h3 {
+  font-family: "Cinzel", serif;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: var(--highlight1);
+}
+
+.chapter-preview .excerpt {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  font-style: italic;
+  color: var(--highlight2);
+}
+
+.read-btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: var(--primary);
+  color: var(--light-text);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+  border: 2px solid var(--primary);
+}
+
+body.dark-mode .read-btn {
+  background: var(--light-text);
+  color: var(--primary);
+  border-color: var(--light-text);
+}
+
+.read-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.synopsis {
+  padding: 6rem 5%;
+  text-align: center;
+}
+
+.synopsis .container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.achievements-preview {
+  padding: 6rem 5%;
+  background: var(--alt-bg);
+}
+
+body.dark-mode .achievements-preview {
+  background: var(--secondary);
+}
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.achievement-card {
+  background: var(--light-bg);
+  padding: 1.5rem;
+  border: 1px solid var(--tertiary);
+  border-radius: 8px;
+  text-align: center;
+  transition: var(--transition);
+}
+
+body.dark-mode .achievement-card {
+  background: var(--primary);
+  border-color: var(--highlight1);
+}
+
+.achievement-card.locked {
+  opacity: 0.5;
+}
+
+.achievement-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--highlight1);
+}
+
+.achievement-card.unlocked .achievement-icon {
+  color: gold;
+}
+
+.achievement-card h4 {
+  font-family: "Cinzel", serif;
+  margin-bottom: 0.5rem;
+}
+
+.achievement-card p {
+  font-size: 0.9rem;
+  color: var(--highlight2);
 }
 
 .section-title {
@@ -321,9 +440,6 @@ body.dark-mode .chapter-card {
   color: var(--highlight1);
 }
 
-/* ========================================
-   SEÇÃO SOBRE/AUTOR
-======================================== */
 .about-section {
   padding: 6rem 5%;
   background: var(--alt-bg);
@@ -348,14 +464,78 @@ body.dark-mode .about-section {
   margin-bottom: 2rem;
 }
 
-/* ========================================
-   PÁGINA DE LEITURA
-======================================== */
+.eldor-map {
+  max-width: 800px;
+  margin: 3rem auto;
+  text-align: center;
+}
+
+.eldor-map img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid var(--tertiary);
+}
+
+.map-tooltip {
+  position: absolute;
+  background: var(--light-bg);
+  border: 1px solid var(--tertiary);
+  padding: 1rem;
+  border-radius: 5px;
+  display: none;
+  z-index: 1000;
+}
+
+body.dark-mode .map-tooltip {
+  background: var(--primary);
+  border-color: var(--highlight1);
+}
+
+.story-timeline {
+  max-width: 800px;
+  margin: 3rem auto;
+  position: relative;
+}
+
+.timeline-event {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.event-dot {
+  width: 20px;
+  height: 20px;
+  background: var(--highlight1);
+  border-radius: 50%;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.event-content {
+  background: var(--light-bg);
+  padding: 1rem;
+  border: 1px solid var(--tertiary);
+  border-radius: 5px;
+  flex-grow: 1;
+}
+
+body.dark-mode .event-content {
+  background: var(--primary);
+  border-color: var(--highlight1);
+}
+
 .reader-container {
   max-width: 800px;
   margin: 0 auto;
   padding: 8rem 5% 4rem;
   min-height: 100vh;
+}
+
+.reader-container.immersive-mode {
+  padding: 2rem 5%;
+  max-width: 100%;
 }
 
 .reader-header {
@@ -368,6 +548,8 @@ body.dark-mode .about-section {
   justify-content: center;
   gap: 1rem;
   margin-bottom: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .font-size-btn {
@@ -383,14 +565,77 @@ body.dark-mode .about-section {
   background: var(--highlight1);
 }
 
+.favorite-btn {
+  background: none;
+  border: 1px solid var(--highlight1);
+  color: var(--highlight1);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: inherit;
+}
+
+.favorite-btn.favorited {
+  background: #ff4444;
+  color: white;
+  border-color: #ff4444;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.05);
+}
+
+.immersive-btn {
+  background: var(--highlight1);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.immersive-btn:hover {
+  background: var(--tertiary);
+}
+
+.reading-stats {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--highlight1);
+  font-style: italic;
+}
+
 .reader-content {
   font-size: 1.2rem;
   line-height: 2;
   text-align: justify;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 1rem;
+  border: 1px solid var(--tertiary);
+  transition: var(--transition);
+}
+
+.reader-content.immersive-mode {
+  max-height: 85vh;
+  border: none;
+  padding: 2rem;
 }
 
 .reader-content p {
   margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.reader-content p.note-marker::after {
+  content: "📝";
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 0.8rem;
 }
 
 .reader-content.font-small {
@@ -401,6 +646,99 @@ body.dark-mode .about-section {
 }
 .reader-content.font-large {
   font-size: 1.4rem;
+}
+
+.reader-content.theme-parchment {
+  background: #f4e9d3;
+  color: #5c4b37;
+  font-family: "Crimson Text", serif;
+}
+
+.reader-content.theme-terminal {
+  background: #1a1a1a;
+  color: #00ff00;
+  font-family: "Courier New", monospace;
+}
+
+.reader-content.theme-night {
+  background: #0a0a2a;
+  color: #e0e0ff;
+}
+
+.rating-widget {
+  text-align: center;
+  margin: 2rem 0;
+  padding: 1rem;
+  background: var(--alt-bg);
+  border: 1px solid var(--tertiary);
+}
+
+body.dark-mode .rating-widget {
+  background: var(--secondary);
+}
+
+.stars {
+  display: inline-block;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.star {
+  color: var(--highlight2);
+  transition: var(--transition);
+}
+
+.star:hover,
+.star.active {
+  color: gold;
+  transform: scale(1.2);
+}
+
+.chapter-comments {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--tertiary);
+}
+
+.comment-form {
+  margin-bottom: 2rem;
+}
+
+.comment-form textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--tertiary);
+  background: var(--light-bg);
+  color: var(--dark-text);
+  font-family: inherit;
+  margin-bottom: 1rem;
+  resize: vertical;
+  min-height: 100px;
+}
+
+body.dark-mode .comment-form textarea {
+  background: var(--primary);
+  color: var(--light-text);
+}
+
+.comment {
+  background: var(--alt-bg);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--tertiary);
+  border-radius: 5px;
+}
+
+body.dark-mode .comment {
+  background: var(--secondary);
+}
+
+.comment-header {
+  display: flex;
+  justify-content: between;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--highlight1);
 }
 
 .reader-nav {
@@ -434,9 +772,35 @@ body.dark-mode .nav-btn {
   cursor: not-allowed;
 }
 
-/* ========================================
-   BARRA DE PROGRESSO
-======================================== */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  opacity: 0;
+  transition: var(--transition);
+  z-index: 1000;
+}
+
+body.dark-mode .back-to-top {
+  background: var(--light-text);
+  color: var(--primary);
+}
+
+.back-to-top.show {
+  opacity: 1;
+}
+
+.back-to-top:hover {
+  transform: translateY(-3px);
+}
+
 .progress-bar {
   position: fixed;
   top: 0;
@@ -452,9 +816,6 @@ body.dark-mode .progress-bar {
   background: var(--light-text);
 }
 
-/* ========================================
-   FOOTER
-======================================== */
 footer {
   background: var(--primary);
   color: var(--light-text);
@@ -468,9 +829,20 @@ body.dark-mode footer {
   color: var(--primary);
 }
 
-/* ========================================
-   PÁGINA ADMIN
-======================================== */
+.export-btn {
+  background: var(--highlight1);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.export-btn:hover {
+  background: var(--tertiary);
+}
+
 .admin-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -599,9 +971,81 @@ body.dark-mode .chapter-item {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* ========================================
-   ANIMAÇÕES
-======================================== */
+.analytics-dashboard {
+  background: var(--alt-bg);
+  padding: 2rem;
+  border: 1px solid var(--tertiary);
+  margin-bottom: 3rem;
+}
+
+body.dark-mode .analytics-dashboard {
+  background: var(--secondary);
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.analytics-card {
+  background: var(--light-bg);
+  padding: 1rem;
+  border: 1px solid var(--tertiary);
+  text-align: center;
+}
+
+body.dark-mode .analytics-card {
+  background: var(--primary);
+}
+
+.analytics-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--highlight1);
+}
+
+.notification {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  background: var(--primary);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  z-index: 10000;
+  transition: var(--transition);
+}
+
+body.dark-mode .notification {
+  background: var(--light-text);
+  color: var(--primary);
+}
+
+.note-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--light-bg);
+  border: 1px solid var(--tertiary);
+  padding: 2rem;
+  z-index: 10000;
+  min-width: 300px;
+}
+
+body.dark-mode .note-modal {
+  background: var(--primary);
+}
+
+.note-modal textarea {
+  width: 100%;
+  min-height: 100px;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -618,9 +1062,6 @@ body.dark-mode .chapter-item {
   animation: fadeInUp 0.8s ease forwards;
 }
 
-/* ========================================
-   RESPONSIVO
-======================================== */
 @media (max-width: 768px) {
   .nav-links {
     position: fixed;
@@ -661,11 +1102,41 @@ body.dark-mode .chapter-item {
     gap: 1rem;
     align-items: flex-start;
   }
+
+  .reader-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .reading-stats {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .featured-chapter,
+  .synopsis {
+    padding: 4rem 5%;
+  }
+
+  .chapter-preview {
+    padding: 2rem 1rem;
+  }
+
+  .achievements-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* ========================================
-   CLASSE AUXILIAR
-======================================== */
 .hidden {
   display: none !important;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }

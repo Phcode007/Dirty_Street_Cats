@@ -49,7 +49,8 @@
     <div class="admin-container">
       <h2 class="section-title">Painel Administrativo</h2>
 
-      <!-- FORMULÁRIO DE ADICIONAR/EDITAR -->
+      <div class="analytics-dashboard" id="analyticsDashboard"></div>
+
       <div class="admin-form">
         <h3>Adicionar/Editar Capítulo</h3>
         <form id="chapterForm" onsubmit="saveChapter(event)">
@@ -71,36 +72,27 @@
           </div>
 
           <div class="form-group">
-            <label for="chapterExcerpt"
-              >Excerto (resumo curto para o card)</label
-            >
+            <label for="chapterPublishDate">Data de Publicação</label>
+            <input type="date" id="chapterPublishDate" />
+          </div>
+
+          <div class="form-group">
+            <label for="chapterExcerpt">Excerto</label>
             <textarea
               id="chapterExcerpt"
               rows="3"
               required
-              placeholder="Escreva um resumo atraente do capítulo..."
+              placeholder="Resumo do capítulo..."
             ></textarea>
           </div>
 
           <div class="form-group">
-            <label for="chapterContent">Conteúdo Completo do Capítulo</label>
+            <label for="chapterContent">Conteúdo Completo</label>
             <textarea
               id="chapterContent"
               required
-              placeholder="Escreva o conteúdo do capítulo. Use duas quebras de linha para separar parágrafos."
+              placeholder="Conteúdo do capítulo..."
             ></textarea>
-            <small
-              style="
-                color: var(--highlight1);
-                display: block;
-                margin-top: 0.5rem;
-              "
-            >
-              💡 Dica: Deixe uma linha em branco entre parágrafos. Exemplo:<br />
-              Primeiro parágrafo aqui.<br />
-              <br />
-              Segundo parágrafo aqui.
-            </small>
           </div>
 
           <button type="submit" class="submit-btn">
@@ -117,12 +109,9 @@
         </form>
       </div>
 
-      <!-- LISTA DE CAPÍTULOS PUBLICADOS -->
       <div class="admin-form">
         <h3>Capítulos Publicados</h3>
-        <ul class="chapters-list" id="adminChaptersList">
-          <!-- Lista será preenchida pelo JavaScript -->
-        </ul>
+        <ul class="chapters-list" id="adminChaptersList"></ul>
       </div>
     </div>
 

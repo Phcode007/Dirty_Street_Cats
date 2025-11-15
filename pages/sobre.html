@@ -17,7 +17,7 @@
   <body>
     <div class="progress-bar" id="progressBar"></div>
 
-    <header>
+    <header id="header">
       <nav>
         <div class="logo" onclick="window.location.href='../index.html'">
           DIRTY STREET CATS
@@ -52,34 +52,31 @@
 
         <p class="about-text">
           Eldor é um mundo onde a magia permeia cada sombra e a luz da esperança
-          brilha nas almas mais improváveis. Em suas ruas sujas e esquecidas,
-          gatos de rua carregam destinos épicos, lutando contra forças além da
-          compreensão mortal.
+          brilha nas almas mais improváveis.
         </p>
 
-        <p class="about-text">
-          Nas vielas estreitas e becos esquecidos, onde a civilização abandona
-          aqueles que não têm voz, uma sociedade secreta de felinos desperta.
-          Eles são os guardiões silenciosos, os observadores noturnos, os
-          portadores de segredos ancestrais que a humanidade há muito esqueceu.
-        </p>
+        <div class="eldor-map">
+          <h3>Mapa de Eldor</h3>
+          <img
+            src="../map/eldor.jpg"
+            alt="Mapa de Eldor"
+            id="eldorMap"
+            usemap="#eldormap"
+          />
+          <map name="eldormap">
+            <area shape="rect" coords="400,300,500,400" alt="crystallis" />
+            <area shape="rect" coords="400,500,500,600" alt="wyvernia" />
+            <area shape="rect" coords="600,300,700,400" alt="serinrando" />
+            <area shape="rect" coords="300,100,400,200" alt="frygid" />
+            <area shape="rect" coords="100,300,200,400" alt="westelf" />
+          </map>
+        </div>
 
-        <p class="about-text">
-          "Dirty Street Cats" é uma jornada pela sobrevivência, pela lealdade e
-          pelo poder escondido nos lugares mais obscuros. Prepare-se para
-          adentrar um universo onde cada esquina guarda um segredo e cada
-          batalha define o destino de mundos.
-        </p>
-
-        <p class="about-text">
-          Em Eldor, a linha entre herói e vilão é tênue como a névoa que cobre
-          as ruas ao amanhecer. Aqui, até mesmo os mais humildes podem se tornar
-          lendas, e os mais poderosos podem cair nas sombras.
-        </p>
+        <div class="story-timeline" id="storyTimeline"></div>
       </div>
     </section>
 
-    <footer>
+    <footer id="footer">
       <p>&copy; 2025 Dirty Street Cats. Todos os direitos reservados.</p>
     </footer>
 

@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dirty Street Cats - Uma história de Eldor</title>
+    <meta
+      name="description"
+      content="Uma épica história de fantasia no mundo de Eldor, onde gatos de rua carregam destinos lendários"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -13,11 +17,12 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="manifest" href="manifest.json" />
   </head>
   <body>
     <div class="progress-bar" id="progressBar"></div>
 
-    <header>
+    <header id="header">
       <nav>
         <div class="logo" onclick="window.location.href='index.html'">
           DIRTY STREET CATS
@@ -54,7 +59,6 @@
       </div>
     </section>
 
-    <!-- NOVA SEÇÃO: CAPÍTULO EM DESTAQUE -->
     <section class="featured-chapter">
       <div class="container">
         <h2 class="section-title">Último Capítulo</h2>
@@ -74,33 +78,46 @@
       </div>
     </section>
 
-    <!-- NOVA SEÇÃO: SINOPSE -->
     <section class="synopsis">
       <div class="container">
         <h2 class="section-title">Sinopse</h2>
         <p class="about-text">
           Em Eldor, um mundo onde magia e destino se entrelaçam, a morte da
           rainha Catarina desencadeia uma cadeia de eventos que ameaça todo o
-          reino. Enquanto o rei Hector enfrenta seu luto, forças sombrias se
-          movem nas sombras...
+          reino.
         </p>
         <p class="about-text">
           A queda do dragão Agrion contaminou a nação de Wyvernia, transformando
-          seus habitantes em draconídeos cruéis. Agora, liderados pelo sábio
-          corrompido Urok, eles marcham para conquistar Crystallis e todo Eldor.
+          seus habitantes em draconídeos cruéis.
         </p>
         <p class="about-text">
           Uma batalha épica se aproxima, onde heróis improváveis surgirão das
-          ruas mais sujas, e o destino do mundo será decidido por aqueles que a
-          sociedade esqueceu.
+          ruas mais sujas.
         </p>
       </div>
     </section>
 
-    <footer>
+    <section class="achievements-preview">
+      <div class="container">
+        <h2 class="section-title">Conquistas</h2>
+        <div class="achievements-grid" id="achievementsGrid"></div>
+      </div>
+    </section>
+
+    <footer id="footer">
       <p>&copy; 2025 Dirty Street Cats. Todos os direitos reservados.</p>
+      <button onclick="exportUserData()" class="export-btn">
+        Exportar Meus Dados
+      </button>
     </footer>
 
+    <div id="notification" class="notification hidden"></div>
+
     <script src="script.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js");
+      }
+    </script>
   </body>
 </html>
