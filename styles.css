@@ -19,7 +19,7 @@
 }
 
 body {
-  font-family: "Crimson Text", serif;
+  font-family: "EB Garamond", serif;
   background: var(--light-bg);
   color: var(--dark-text);
   line-height: 1.8;
@@ -56,7 +56,7 @@ nav {
 }
 
 .logo {
-  font-family: "Cinzel", serif;
+  font-family: "EB Garamond", serif;
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: 2px;
@@ -180,9 +180,9 @@ body.dark-mode .hamburger span {
 }
 
 .hero-title {
-  font-family: "Cinzel", serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(3rem, 8vw, 6rem);
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 4px;
   margin-bottom: 1rem;
   text-transform: uppercase;
@@ -265,7 +265,7 @@ body.dark-mode .chapter-preview {
 }
 
 .chapter-preview h3 {
-  font-family: "Cinzel", serif;
+  font-family: "EB Garamond", serif;
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
   color: var(--highlight1);
@@ -356,7 +356,7 @@ body.dark-mode .achievement-card {
 }
 
 .achievement-card h4 {
-  font-family: "Cinzel", serif;
+  font-family: "EB Garamond", serif;
   margin-bottom: 0.5rem;
 }
 
@@ -366,12 +366,93 @@ body.dark-mode .achievement-card {
 }
 
 .section-title {
-  font-family: "Cinzel", serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(2rem, 5vw, 3rem);
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   letter-spacing: 3px;
   padding-top: 5rem;
+}
+
+.chapters-section {
+  padding: 6rem 5% 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.search-container {
+  max-width: 500px;
+  margin: 0 auto 2rem;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  border: 2px solid var(--tertiary);
+  background: var(--light-bg);
+  color: var(--dark-text);
+  text-align: center;
+  font-family: inherit;
+  transition: var(--transition);
+}
+
+.search-container input:focus {
+  outline: none;
+  border-color: var(--highlight1);
+}
+
+body.dark-mode .search-container input {
+  background: var(--primary);
+  color: var(--light-text);
+  border-color: var(--highlight1);
+}
+
+.sort-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.sort-btn {
+  padding: 0.7rem 1.5rem;
+  background: var(--alt-bg);
+  color: var(--dark-text);
+  border: 2px solid var(--tertiary);
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: inherit;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+body.dark-mode .sort-btn {
+  background: var(--secondary);
+  color: var(--light-text);
+  border-color: var(--highlight1);
+}
+
+.sort-btn:hover {
+  background: var(--tertiary);
+  color: var(--light-text);
+  transform: translateY(-2px);
+}
+
+.sort-btn.active {
+  background: var(--primary);
+  color: var(--light-text);
+  border-color: var(--primary);
+}
+
+body.dark-mode .sort-btn.active {
+  background: var(--light-text);
+  color: var(--primary);
+  border-color: var(--light-text);
 }
 
 .chapters-grid {
@@ -421,7 +502,7 @@ body.dark-mode .chapter-card {
 }
 
 .chapter-number {
-  font-family: "Cinzel", serif;
+  font-family: "EB Garamond", serif;
   font-size: 0.9rem;
   color: var(--highlight1);
   margin-bottom: 0.5rem;
@@ -429,7 +510,7 @@ body.dark-mode .chapter-card {
 }
 
 .chapter-title {
-  font-family: "Cinzel", serif;
+  font-family: "EB Garamond", serif;
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
@@ -438,6 +519,7 @@ body.dark-mode .chapter-card {
   font-size: 1rem;
   line-height: 1.6;
   color: var(--highlight1);
+  margin-bottom: 1rem;
 }
 
 .about-section {
@@ -468,6 +550,12 @@ body.dark-mode .about-section {
   max-width: 800px;
   margin: 3rem auto;
   text-align: center;
+}
+
+.eldor-map h3 {
+  font-family: "EB Garamond", serif;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
 }
 
 .eldor-map img {
@@ -524,6 +612,12 @@ body.dark-mode .map-tooltip {
 body.dark-mode .event-content {
   background: var(--primary);
   border-color: var(--highlight1);
+}
+
+.event-content h4 {
+  font-family: "EB Garamond", serif;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
 }
 
 .reader-container {
@@ -651,13 +745,13 @@ body.dark-mode .event-content {
 .reader-content.theme-parchment {
   background: #f4e9d3;
   color: #5c4b37;
-  font-family: "Crimson Text", serif;
+  font-family: "EB Garamond", serif;
 }
 
 .reader-content.theme-terminal {
   background: #1a1a1a;
   color: #00ff00;
-  font-family: "Courier New", monospace;
+  font-family: "Google Sans Code", monospace;
 }
 
 .reader-content.theme-night {
@@ -735,7 +829,7 @@ body.dark-mode .comment {
 
 .comment-header {
   display: flex;
-  justify-content: between;
+  justify-content: space-between;
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
   color: var(--highlight1);
@@ -863,7 +957,7 @@ body.dark-mode .admin-form {
 }
 
 .admin-form h3 {
-  font-family: "Cinzel", serif;
+  font-family: "EB Garamond", serif;
   margin-bottom: 2rem;
   font-size: 1.5rem;
 }
@@ -879,7 +973,8 @@ body.dark-mode .admin-form {
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
   width: 100%;
   padding: 0.8rem;
   background: var(--light-bg);
@@ -890,7 +985,8 @@ body.dark-mode .admin-form {
 }
 
 body.dark-mode .form-group input,
-body.dark-mode .form-group textarea {
+body.dark-mode .form-group textarea,
+body.dark-mode .form-group select {
   background: var(--primary);
   color: var(--light-text);
   border-color: var(--highlight1);
@@ -982,6 +1078,12 @@ body.dark-mode .analytics-dashboard {
   background: var(--secondary);
 }
 
+.analytics-dashboard h3 {
+  font-family: "EB Garamond", serif;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
 .analytics-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1039,11 +1141,17 @@ body.dark-mode .note-modal {
   background: var(--primary);
 }
 
+.note-modal h3 {
+  font-family: "EB Garamond", serif;
+  margin-bottom: 1rem;
+}
+
 .note-modal textarea {
   width: 100%;
   min-height: 100px;
   margin-bottom: 1rem;
   padding: 0.5rem;
+  font-family: inherit;
 }
 
 @keyframes fadeInUp {
@@ -1129,6 +1237,29 @@ body.dark-mode .note-modal {
   .analytics-grid {
     grid-template-columns: 1fr;
   }
+
+  .sort-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sort-btn {
+    justify-content: center;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 7vw, 6rem);
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    padding-top: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  .search-container {
+    margin-bottom: 1.5rem;
+  }
 }
 
 .hidden {
@@ -1139,89 +1270,4 @@ body.dark-mode .note-modal {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
-}
-
-.search-container {
-  max-width: 500px;
-  margin: 0 auto 2rem;
-}
-
-.search-container input {
-  width: 100%;
-  padding: 1rem;
-  font-size: 1.1rem;
-  border: 2px solid var(--tertiary);
-  background: var(--light-bg);
-  color: var(--dark-text);
-  text-align: center;
-  font-family: inherit;
-  transition: var(--transition);
-}
-
-.search-container input:focus {
-  outline: none;
-  border-color: var(--highlight1);
-}
-
-body.dark-mode .search-container input {
-  background: var(--primary);
-  color: var(--light-text);
-  border-color: var(--highlight1);
-}
-
-.sort-controls {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-}
-
-.sort-btn {
-  padding: 0.7rem 1.5rem;
-  background: var(--alt-bg);
-  color: var(--dark-text);
-  border: 2px solid var(--tertiary);
-  cursor: pointer;
-  transition: var(--transition);
-  font-family: inherit;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-body.dark-mode .sort-btn {
-  background: var(--secondary);
-  color: var(--light-text);
-  border-color: var(--highlight1);
-}
-
-.sort-btn:hover {
-  background: var(--tertiary);
-  color: var(--light-text);
-  transform: translateY(-2px);
-}
-
-.sort-btn.active {
-  background: var(--primary);
-  color: var(--light-text);
-  border-color: var(--primary);
-}
-
-body.dark-mode .sort-btn.active {
-  background: var(--light-text);
-  color: var(--primary);
-  border-color: var(--light-text);
-}
-
-@media (max-width: 768px) {
-  .sort-controls {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .sort-btn {
-    justify-content: center;
-  }
 }

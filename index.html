@@ -8,18 +8,21 @@
       name="description"
       content="Uma épica história de fantasia no mundo de Eldor, onde gatos de rua carregam destinos lendários"
     />
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
+    
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
     <link rel="manifest" href="manifest.json" />
-    <link rel="icon" type="image/png" href="../favicon.png" />
-    <link rel="shortcut icon" href="../favicon.png" />
   </head>
   <body>
     <div class="progress-bar" id="progressBar"></div>
@@ -70,7 +73,7 @@
             "No coração sombrio de Eldor, onde a luz raramente penetra as vielas
             estreitas, uma lenda começa a se formar entre os gatos de rua..."
           </p>
-          <a
+          
             href="pages/leitor.html"
             class="read-btn"
             onclick="setCurrentChapter(1)"
@@ -115,6 +118,9 @@
 
     <div id="notification" class="notification hidden"></div>
 
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
     <script src="script.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
