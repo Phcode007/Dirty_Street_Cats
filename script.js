@@ -32,18 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
   initScrollProgress();
   loadChapters();
   highlightCurrentPage();
-  checkForNewChapters();
   setupKeyboardNavigation();
   implementLazyLoading();
-
-  if (document.getElementById("chaptersGrid")) {
-    renderChapters();
-  }
-
-  if (document.getElementById("adminChaptersList")) {
-    renderAdminChapters();
-    renderAnalytics();
-  }
 
   if (document.getElementById("readerContent")) {
     loadReaderChapter();
@@ -65,6 +55,50 @@ document.addEventListener("DOMContentLoaded", function () {
     renderTimeline();
   }
 });
+
+async function loadChapters() {
+  try {
+    const snapshot = await db.collection("chapters").orderBy("number").get();
+    chapters = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      number: doc.data().number,
+      title: doc.data().title,
+      excerpt: doc.data().excerpt,
+      content: doc.data().content,
+      publishDate: doc.data().publishDate,
+    }));
+
+    if (chapters.length === 0) {
+      const defaultChapter = {
+        number: 1,
+        title: "Origem",
+        excerpt:
+          "No coração sombrio de Eldor, onde a luz raramente penetra as vielas estreitas, uma lenda começa a se formar entre os gatos de rua...",
+        content: `<p>A chuva caía sem piedade sobre as pedras irregulares da Rua dos Esquecidos. Naquele canto abandonado de Eldor, onde nem mesmo os guardas da cidade ousavam patrulhar após o crepúsculo, as sombras dançavam com vida própria.</p>
+        <p>Entre os destroços de uma antiga taverna, um par de olhos dourados brilhava na escuridão. Não eram olhos comuns - havia neles uma inteligência antiga, um conhecimento que transcendia a simples existência animal.</p>
+        <p>Seu nome era Sombra. Pelo menos, era assim que os outros gatos de rua o chamavam. Mas aquele não era seu verdadeiro nome, não o nome que ecoava nos corredores de sua memória fragmentada, não o nome que carregava o peso de um destino ainda não cumprido.</p>
+        <p>Esta é a história de como um simples gato de rua descobriu que era muito mais do que aparentava. Esta é a história de Eldor, de seus segredos enterrados e de uma profecia esquecida que está prestes a se cumprir.</p>
+        <p>Esta é a origem dos Dirty Street Cats.</p>`,
+        publishDate: "2025-01-01",
+      };
+      await db.collection("chapters").add(defaultChapter);
+      await loadChapters();
+    } else {
+      if (document.getElementById("chaptersGrid")) {
+        renderChapters();
+      }
+      if (document.getElementById("adminChaptersList")) {
+        renderAdminChapters();
+        renderAnalytics();
+      }
+    }
+  } catch (error) {
+    console.error("Erro ao carregar capítulos:", error);
+    showNotification("❌ Erro ao carregar capítulos do Firebase");
+  }
+}
+
+function saveChaptersToStorage() {}
 
 function highlightCurrentPage() {
   const currentPage = window.location.pathname.split("/").pop() || "index.html";
@@ -119,34 +153,6 @@ function initScrollProgress() {
   });
 }
 
-function loadChapters() {
-  const saved = localStorage.getItem("dsc_chapters");
-  if (saved) {
-    chapters = JSON.parse(saved);
-  } else {
-    chapters = [
-      {
-        id: 1,
-        number: 1,
-        title: "Origem",
-        excerpt:
-          "No coração sombrio de Eldor, onde a luz raramente penetra as vielas estreitas, uma lenda começa a se formar entre os gatos de rua...",
-        content: `<p>A chuva caía sem piedade sobre as pedras irregulares da Rua dos Esquecidos. Naquele canto abandonado de Eldor, onde nem mesmo os guardas da cidade ousavam patrulhar após o crepúsculo, as sombras dançavam com vida própria.</p>
-                    <p>Entre os destroços de uma antiga taverna, um par de olhos dourados brilhava na escuridão. Não eram olhos comuns - havia neles uma inteligência antiga, um conhecimento que transcendia a simples existência animal.</p>
-                    <p>Seu nome era Sombra. Pelo menos, era assim que os outros gatos de rua o chamavam. Mas aquele não era seu verdadeiro nome, não o nome que ecoava nos corredores de sua memória fragmentada, não o nome que carregava o peso de um destino ainda não cumprido.</p>
-                    <p>Esta é a história de como um simples gato de rua descobriu que era muito mais do que aparentava. Esta é a história de Eldor, de seus segredos enterrados e de uma profecia esquecida que está prestes a se cumprir.</p>
-                    <p>Esta é a origem dos Dirty Street Cats.</p>`,
-        publishDate: "2025-01-01",
-      },
-    ];
-    saveChaptersToStorage();
-  }
-}
-
-function saveChaptersToStorage() {
-  localStorage.setItem("dsc_chapters", JSON.stringify(chapters));
-}
-
 function renderChapters() {
   const grid = document.getElementById("chaptersGrid");
   if (!grid) return;
@@ -154,7 +160,7 @@ function renderChapters() {
   grid.innerHTML = chapters
     .map(
       (chapter) => `
-            <div class="chapter-card" onclick="openReader(${chapter.id})">
+            <div class="chapter-card" onclick="openReader('${chapter.id}')">
                 <p class="chapter-number">CAPÍTULO ${chapter.number}</p>
                 <h3 class="chapter-title">${chapter.title}</h3>
                 <p class="chapter-excerpt">${chapter.excerpt}</p>
@@ -174,7 +180,7 @@ function addRatingWidget(chapterId) {
                   .map(
                     (star) => `
                     <span class="star ${star <= rating ? "active" : ""}" 
-                          onclick="rateChapter(${chapterId}, ${star})">★</span>
+                          onclick="event.stopPropagation(); rateChapter('${chapterId}', ${star})">★</span>
                 `
                   )
                   .join("")}
@@ -188,6 +194,7 @@ function rateChapter(chapterId, rating) {
   ratings[chapterId] = rating;
   localStorage.setItem("dsc_ratings", JSON.stringify(ratings));
   showNotification("Avaliação salva!");
+  renderChapters();
   checkAchievements();
 }
 
@@ -210,20 +217,14 @@ function setCurrentChapter(chapterId) {
 }
 
 function isChapterUnlocked(chapterNumber) {
-  const launchSchedule = {
-    1: "2025-01-01",
-    2: "2025-01-08",
-    3: "2025-01-15",
-  };
-
-  const launchDate = new Date(launchSchedule[chapterNumber]);
-  return new Date() >= launchDate;
+  return true;
 }
 
 function loadReaderChapter() {
-  const chapterId = parseInt(localStorage.getItem("dsc_currentChapter")) || 1;
-  const chapter = chapters.find((c) => c.id === chapterId);
+  const chapterId = localStorage.getItem("dsc_currentChapter");
+  if (!chapterId) return;
 
+  const chapter = chapters.find((c) => c.id === chapterId);
   if (!chapter) return;
 
   currentChapter = chapters.indexOf(chapter);
@@ -251,7 +252,9 @@ function loadReaderChapter() {
   if (savedProgress > 0) {
     setTimeout(() => {
       const content = document.getElementById("readerContent");
-      content.scrollTop = (content.scrollHeight * savedProgress) / 100;
+      if (content) {
+        content.scrollTop = (content.scrollHeight * savedProgress) / 100;
+      }
     }, 100);
   }
 
@@ -290,8 +293,7 @@ function navigateChapter(direction) {
 function changeFontSize(size) {
   const content = document.getElementById("readerContent");
   if (content) {
-    content.className =
-      content.className.replace(/font-\w+/g, "") + " font-" + size;
+    content.className = "reader-content font-" + size;
     localStorage.setItem("dsc_fontSize", size);
   }
 }
@@ -312,7 +314,9 @@ function addImmersiveButton() {
   immersiveBtn.onclick = toggleImmersiveMode;
 
   const readerControls = document.querySelector(".reader-controls");
-  readerControls.appendChild(immersiveBtn);
+  if (readerControls) {
+    readerControls.appendChild(immersiveBtn);
+  }
 }
 
 function toggleImmersiveMode() {
@@ -321,19 +325,21 @@ function toggleImmersiveMode() {
   const header = document.getElementById("header");
   const footer = document.getElementById("footer");
 
-  reader.classList.toggle("immersive-mode");
-  content.classList.toggle("immersive-mode");
+  if (reader && content) {
+    reader.classList.toggle("immersive-mode");
+    content.classList.toggle("immersive-mode");
 
-  if (reader.classList.contains("immersive-mode")) {
-    header.style.display = "none";
-    footer.style.display = "none";
-    document.querySelector(".immersive-btn").innerHTML =
-      '<i class="fas fa-compress"></i> Sair do Modo Imersivo';
-  } else {
-    header.style.display = "block";
-    footer.style.display = "block";
-    document.querySelector(".immersive-btn").innerHTML =
-      '<i class="fas fa-expand"></i> Modo Imersivo';
+    if (reader.classList.contains("immersive-mode")) {
+      if (header) header.style.display = "none";
+      if (footer) footer.style.display = "none";
+      document.querySelector(".immersive-btn").innerHTML =
+        '<i class="fas fa-compress"></i> Sair do Modo Imersivo';
+    } else {
+      if (header) header.style.display = "block";
+      if (footer) footer.style.display = "block";
+      document.querySelector(".immersive-btn").innerHTML =
+        '<i class="fas fa-expand"></i> Modo Imersivo';
+    }
   }
 }
 
@@ -351,7 +357,9 @@ function addThemeSelector() {
   themeSelector.value = savedTheme;
 
   const readerControls = document.querySelector(".reader-controls");
-  readerControls.appendChild(themeSelector);
+  if (readerControls) {
+    readerControls.appendChild(themeSelector);
+  }
 }
 
 function saveReadingProgress(chapterId, progress) {
@@ -373,7 +381,7 @@ function setupScrollListener() {
   const content = document.getElementById("readerContent");
   if (content) {
     content.addEventListener("scroll", function () {
-      const chapterId = parseInt(localStorage.getItem("dsc_currentChapter"));
+      const chapterId = localStorage.getItem("dsc_currentChapter");
       const scrollTop = content.scrollTop;
       const scrollHeight = content.scrollHeight - content.clientHeight;
       const progress = (scrollTop / scrollHeight) * 100;
@@ -381,10 +389,12 @@ function setupScrollListener() {
       saveReadingProgress(chapterId, progress);
 
       const backToTopBtn = document.getElementById("backToTop");
-      if (scrollTop > 200) {
-        backToTopBtn.classList.add("show");
-      } else {
-        backToTopBtn.classList.remove("show");
+      if (backToTopBtn) {
+        if (scrollTop > 200) {
+          backToTopBtn.classList.add("show");
+        } else {
+          backToTopBtn.classList.remove("show");
+        }
       }
     });
   }
@@ -392,6 +402,8 @@ function setupScrollListener() {
 
 function calculateReadingStats() {
   const content = document.getElementById("readerContent");
+  if (!content) return { wordCount: 0, readingTime: 0 };
+
   const text = content.textContent || content.innerText;
   const wordCount = text.trim().split(/\s+/).length;
   const readingTime = Math.ceil(wordCount / 200);
@@ -410,7 +422,9 @@ function displayReadingStats() {
     `;
 
   const readerHeader = document.querySelector(".reader-header");
-  readerHeader.appendChild(statsElement);
+  if (readerHeader) {
+    readerHeader.appendChild(statsElement);
+  }
 }
 
 function setupFavoriteButton(chapterId) {
@@ -420,8 +434,10 @@ function setupFavoriteButton(chapterId) {
   favoriteBtn.onclick = () => toggleFavorite(chapterId);
 
   const readerControls = document.querySelector(".reader-controls");
-  readerControls.appendChild(favoriteBtn);
-  updateFavoriteButton(chapterId);
+  if (readerControls) {
+    readerControls.appendChild(favoriteBtn);
+    updateFavoriteButton(chapterId);
+  }
 }
 
 function toggleFavorite(chapterId) {
@@ -462,12 +478,16 @@ function addBackToTopButton() {
   backToTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
   backToTop.className = "back-to-top";
   backToTop.onclick = () => {
-    document
-      .getElementById("readerContent")
-      .scrollTo({ top: 0, behavior: "smooth" });
+    const content = document.getElementById("readerContent");
+    if (content) {
+      content.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
-  document.querySelector(".reader-container").appendChild(backToTop);
+  const container = document.querySelector(".reader-container");
+  if (container) {
+    container.appendChild(backToTop);
+  }
 }
 
 function setupTouchNavigation() {
@@ -502,17 +522,12 @@ function setupKeyboardNavigation() {
           navigateChapter("next");
           break;
         case "f":
-          const chapterId = parseInt(
-            localStorage.getItem("dsc_currentChapter")
-          );
+          const chapterId = localStorage.getItem("dsc_currentChapter");
           toggleFavorite(chapterId);
           break;
         case "Escape":
-          if (
-            document
-              .querySelector(".reader-container")
-              .classList.contains("immersive-mode")
-          ) {
+          const reader = document.querySelector(".reader-container");
+          if (reader && reader.classList.contains("immersive-mode")) {
             toggleImmersiveMode();
           }
           break;
@@ -523,14 +538,16 @@ function setupKeyboardNavigation() {
 
 function addNoteSystem() {
   const content = document.getElementById("readerContent");
-  content.addEventListener("dblclick", function (e) {
-    if (e.target.tagName === "P") {
-      const selection = window.getSelection().toString();
-      if (selection) {
-        showNoteModal(selection, e.target);
+  if (content) {
+    content.addEventListener("dblclick", function (e) {
+      if (e.target.tagName === "P") {
+        const selection = window.getSelection().toString();
+        if (selection) {
+          showNoteModal(selection, e.target);
+        }
       }
-    }
-  });
+    });
+  }
 }
 
 function showNoteModal(selectedText, paragraph) {
@@ -540,20 +557,25 @@ function showNoteModal(selectedText, paragraph) {
         <h3>Adicionar Anotação</h3>
         <p><strong>Texto selecionado:</strong> "${selectedText}"</p>
         <textarea placeholder="Sua anotação..."></textarea>
-        <button onclick="saveNote('${selectedText}', this.parentNode.querySelector('textarea').value, ${paragraph.dataset.id})">Salvar</button>
+        <button onclick="saveNote('${selectedText.replace(
+          /'/g,
+          "\\'"
+        )}', this.parentNode.querySelector('textarea').value)">Salvar</button>
         <button onclick="this.parentNode.remove()">Cancelar</button>
     `;
 
   document.body.appendChild(modal);
 }
 
-function saveNote(selectedText, note, paragraphId) {
+function saveNote(selectedText, note) {
+  const chapterId = localStorage.getItem("dsc_currentChapter");
   const notes = JSON.parse(localStorage.getItem("dsc_notes") || "{}");
-  if (!notes[paragraphId]) notes[paragraphId] = [];
-  notes[paragraphId].push({ text: selectedText, note, date: new Date() });
+  if (!notes[chapterId]) notes[chapterId] = [];
+  notes[chapterId].push({ text: selectedText, note, date: new Date() });
   localStorage.setItem("dsc_notes", JSON.stringify(notes));
 
-  document.querySelector(".note-modal").remove();
+  const modal = document.querySelector(".note-modal");
+  if (modal) modal.remove();
   showNotification("Anotação salva!");
   checkAchievements();
 }
@@ -582,7 +604,7 @@ function loadComments(chapterId) {
             <h3>Comentários (${chapterComments.length})</h3>
             <div class="comment-form">
                 <textarea id="commentText" placeholder="Deixe seu comentário..."></textarea>
-                <button onclick="postComment(${chapterId})">Enviar Comentário</button>
+                <button onclick="postComment('${chapterId}')">Enviar Comentário</button>
             </div>
             <div class="comments-list">
                 ${commentsHTML}
@@ -612,6 +634,8 @@ function postComment(chapterId) {
 
 function renderAchievements() {
   const grid = document.getElementById("achievementsGrid");
+  if (!grid) return;
+
   const unlocked = checkAchievements();
 
   grid.innerHTML = Object.entries(achievements)
@@ -639,26 +663,16 @@ function checkAchievements() {
     unlocked.push(achievements.firstChapter);
   }
 
-  if (Object.keys(progress).length >= chapters.length) {
+  if (Object.keys(progress).length >= chapters.length && chapters.length > 0) {
     unlocked.push(achievements.allChapters);
   }
 
   const noteCount = Object.values(notes).reduce(
-    (total, paragraphNotes) => total + paragraphNotes.length,
+    (total, chapterNotes) => total + chapterNotes.length,
     0
   );
   if (noteCount >= 10) {
     unlocked.push(achievements.noteTaker);
-  }
-
-  const today = new Date().toDateString();
-  const todayRead = Object.keys(progress).filter((chapterId) => {
-    const chapter = chapters.find((c) => c.id == chapterId);
-    return chapter && new Date(chapter.publishDate).toDateString() === today;
-  });
-
-  if (todayRead.length >= 5) {
-    unlocked.push(achievements.fastReader);
   }
 
   localStorage.setItem("dsc_achievements", JSON.stringify(unlocked));
@@ -711,17 +725,19 @@ function renderTimeline() {
 
 function checkForNewChapters() {
   const lastVisit = localStorage.getItem("dsc_lastVisit");
-  const newChapters = chapters.filter(
-    (chapter) => new Date(chapter.publishDate) > new Date(lastVisit)
-  );
-
-  if (newChapters.length > 0) {
-    showNotification(
-      `Há ${newChapters.length} novo(s) capítulo(s) disponível(is)!`
+  if (lastVisit && chapters.length > 0) {
+    const newChapters = chapters.filter(
+      (chapter) => new Date(chapter.publishDate) > new Date(lastVisit)
     );
+
+    if (newChapters.length > 0) {
+      showNotification(
+        `Há ${newChapters.length} novo(s) capítulo(s) disponível(is)!`
+      );
+    }
   }
 
-  localStorage.setItem("dsc_lastVisit", new Date());
+  localStorage.setItem("dsc_lastVisit", new Date().toISOString());
 }
 
 function implementLazyLoading() {
@@ -763,12 +779,14 @@ function exportUserData() {
 
 function showNotification(message) {
   const notification = document.getElementById("notification");
-  notification.textContent = message;
-  notification.classList.remove("hidden");
+  if (notification) {
+    notification.textContent = message;
+    notification.classList.remove("hidden");
 
-  setTimeout(() => {
-    notification.classList.add("hidden");
-  }, 3000);
+    setTimeout(() => {
+      notification.classList.add("hidden");
+    }, 3000);
+  }
 }
 
 function updateReadingStats(chapterId) {
@@ -799,10 +817,10 @@ function renderAdminChapters() {
                     <small>Publicado em: ${chapter.publishDate}</small>
                 </div>
                 <div class="chapter-actions">
-                    <button class="edit-btn" onclick="editChapter(${chapter.id})">
+                    <button class="edit-btn" onclick="editChapter('${chapter.id}')">
                         <i class="fas fa-edit"></i> Editar
                     </button>
-                    <button class="delete-btn" onclick="deleteChapter(${chapter.id})">
+                    <button class="delete-btn" onclick="deleteChapter('${chapter.id}')">
                         <i class="fas fa-trash"></i> Excluir
                     </button>
                 </div>
@@ -825,7 +843,9 @@ function renderAnalytics() {
     JSON.parse(localStorage.getItem("dsc_comments") || "{}")
   ).reduce((total, comments) => total + comments.length, 0);
 
-  document.getElementById("analyticsDashboard").innerHTML = `
+  const dashboard = document.getElementById("analyticsDashboard");
+  if (dashboard) {
+    dashboard.innerHTML = `
         <h3>Estatísticas da Novel</h3>
         <div class="analytics-grid">
             <div class="analytics-card">
@@ -846,9 +866,10 @@ function renderAnalytics() {
             </div>
         </div>
     `;
+  }
 }
 
-function saveChapter(e) {
+async function saveChapter(e) {
   e.preventDefault();
 
   const id = document.getElementById("editingChapterId").value;
@@ -886,8 +907,7 @@ function saveChapter(e) {
     .map((p) => `<p>${p.trim()}</p>`)
     .join("\n");
 
-  const chapter = {
-    id: id ? parseInt(id) : Date.now(),
+  const chapterData = {
     number,
     title,
     excerpt,
@@ -895,25 +915,26 @@ function saveChapter(e) {
     publishDate,
   };
 
-  if (id) {
-    const index = chapters.findIndex((c) => c.id === parseInt(id));
-    chapters[index] = chapter;
-  } else {
-    chapters.push(chapter);
+  try {
+    if (id) {
+      await db.collection("chapters").doc(id).update(chapterData);
+      showNotification("✅ Capítulo atualizado com sucesso!");
+    } else {
+      await db.collection("chapters").add(chapterData);
+      showNotification("✅ Capítulo criado com sucesso!");
+    }
+
+    document.getElementById("chapterForm").reset();
+    document.getElementById("editingChapterId").value = "";
+
+    await loadChapters();
+  } catch (error) {
+    console.error("Erro ao salvar capítulo:", error);
+    showNotification("❌ Erro ao salvar capítulo: " + error.message);
   }
-
-  chapters.sort((a, b) => a.number - b.number);
-  saveChaptersToStorage();
-  renderAdminChapters();
-  renderAnalytics();
-
-  document.getElementById("chapterForm").reset();
-  document.getElementById("editingChapterId").value = "";
-
-  showNotification("✅ Capítulo salvo com sucesso!");
 }
 
-function editChapter(id) {
+async function editChapter(id) {
   const chapter = chapters.find((c) => c.id === id);
   if (!chapter) return;
 
@@ -933,15 +954,17 @@ function editChapter(id) {
   document.getElementById("chapterForm").scrollIntoView({ behavior: "smooth" });
 }
 
-function deleteChapter(id) {
+async function deleteChapter(id) {
   if (!confirm("Tem certeza que deseja excluir este capítulo?")) return;
 
-  chapters = chapters.filter((c) => c.id !== id);
-  saveChaptersToStorage();
-  renderAdminChapters();
-  renderAnalytics();
-
-  showNotification("Capítulo excluído com sucesso!");
+  try {
+    await db.collection("chapters").doc(id).delete();
+    showNotification("✅ Capítulo excluído com sucesso!");
+    await loadChapters();
+  } catch (error) {
+    console.error("Erro ao deletar capítulo:", error);
+    showNotification("❌ Erro ao deletar capítulo: " + error.message);
+  }
 }
 
 function cancelEdit() {
@@ -990,9 +1013,9 @@ function sortChapters(sortBy) {
   document
     .querySelectorAll(".sort-btn")
     .forEach((btn) => btn.classList.remove("active"));
-  document
-    .getElementById("sort" + sortBy.charAt(0).toUpperCase() + sortBy.slice(1))
-    .classList.add("active");
+  const btnId = "sort" + sortBy.charAt(0).toUpperCase() + sortBy.slice(1);
+  const btn = document.getElementById(btnId);
+  if (btn) btn.classList.add("active");
 }
 
 function restoreBackup() {
@@ -1001,16 +1024,17 @@ function restoreBackup() {
     const data = JSON.parse(backup);
     if (
       confirm(
-        `Restaurar backup de ${new Date(data.timestamp).toLocaleString()}?`
+        `Restaurar backup local de ${new Date(
+          data.timestamp
+        ).toLocaleString()}? Isso não afeta os capítulos no Firebase.`
       )
     ) {
-      chapters = data.chapters;
-      saveChaptersToStorage();
-      showNotification("Backup restaurado com sucesso!");
-      window.location.reload();
+      showNotification(
+        "ℹ️ Backup local não sincroniza com Firebase. Use o Firebase Console para gerenciar capítulos."
+      );
     }
   } else {
-    showNotification("Nenhum backup encontrado");
+    showNotification("Nenhum backup local encontrado");
   }
 }
 
