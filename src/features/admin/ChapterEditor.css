@@ -1,0 +1,343 @@
+.chapter-editor-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+  overflow-y: auto;
+}
+
+.chapter-editor {
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  background-color: var(--color-bg-light);
+  color: var(--color-text-dark);
+  border: 2px solid var(--color-tertiary);
+  display: flex;
+  flex-direction: column;
+  animation: slideInUp 0.3s ease;
+  overflow: hidden;
+}
+
+.chapter-editor.dark {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border-color: #333333;
+}
+
+.chapter-editor.light {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #e0e0e0;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  border-bottom: 2px solid var(--color-tertiary);
+  background-color: var(--color-bg-alt);
+}
+
+.chapter-editor.dark .editor-header {
+  background-color: #0a0a0a;
+  border-bottom-color: #333333;
+}
+
+.chapter-editor.light .editor-header {
+  background-color: #f5f5f5;
+  border-bottom-color: #e0e0e0;
+}
+
+.editor-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: inherit;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 5px;
+  transition: opacity 0.3s ease;
+}
+
+.close-button:hover {
+  opacity: 0.7;
+}
+
+.editor-error {
+  padding: 15px 30px;
+  background-color: rgba(255, 68, 68, 0.2);
+  border-bottom: 2px solid #ff4444;
+  color: #ff4444;
+  text-align: center;
+  font-weight: 600;
+}
+
+.editor-form {
+  padding: 30px;
+  overflow-y: auto;
+  flex: 1;
+  background-color: var(--color-bg-light);
+}
+
+.chapter-editor.dark .editor-form {
+  background-color: #1a1a1a;
+}
+
+.chapter-editor.light .editor-form {
+  background-color: #ffffff;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 25px;
+  flex: 1;
+}
+
+.form-group.flex-2 {
+  flex: 2;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+  color: inherit;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 15px;
+  font-size: 16px;
+  font-family: inherit;
+  background-color: var(--color-bg-alt);
+  color: var(--color-text-dark);
+  border: 2px solid var(--color-tertiary);
+  transition: all 0.3s ease;
+}
+
+.chapter-editor.dark .form-group input,
+.chapter-editor.dark .form-group textarea {
+  background-color: #0a0a0a;
+  color: #ffffff;
+  border-color: #333333;
+}
+
+.chapter-editor.light .form-group input,
+.chapter-editor.light .form-group textarea {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #e0e0e0;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-highlight-1);
+}
+
+.chapter-editor.dark .form-group input:focus,
+.chapter-editor.dark .form-group textarea:focus {
+  border-color: #666666;
+}
+
+.chapter-editor.light .form-group input:focus,
+.chapter-editor.light .form-group textarea:focus {
+  border-color: #999999;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--color-highlight-1);
+  opacity: 0.5;
+}
+
+.form-group textarea {
+  min-height: 400px;
+  resize: vertical;
+  line-height: 1.8;
+}
+
+.editor-stats {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 25px;
+  color: inherit;
+}
+
+.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
+  color: inherit;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--color-text-dark);
+}
+
+.chapter-editor.dark .checkbox-label input[type="checkbox"] {
+  accent-color: #ffffff;
+}
+
+.chapter-editor.light .checkbox-label input[type="checkbox"] {
+  accent-color: #000000;
+}
+
+.editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  padding: 25px 30px;
+  border-top: 2px solid var(--color-tertiary);
+  background-color: var(--color-bg-alt);
+}
+
+.chapter-editor.dark .editor-actions {
+  background-color: #0a0a0a;
+  border-top-color: #333333;
+}
+
+.chapter-editor.light .editor-actions {
+  background-color: #f5f5f5;
+  border-top-color: #e0e0e0;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--font-secondary);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 2px solid currentColor;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button-secondary {
+  background-color: transparent;
+  color: inherit;
+}
+
+.button-secondary:hover:not(:disabled) {
+  opacity: 0.7;
+}
+
+.button-primary {
+  background-color: var(--color-text-dark);
+  color: var(--color-bg-light);
+  border-color: var(--color-text-dark);
+}
+
+.chapter-editor.dark .button-primary {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+.chapter-editor.light .button-primary {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+.button-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .chapter-editor {
+    max-height: 95vh;
+  }
+
+  .editor-header {
+    padding: 20px;
+  }
+
+  .editor-header h2 {
+    font-size: 20px;
+  }
+
+  .editor-form {
+    padding: 20px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .form-group textarea {
+    min-height: 300px;
+  }
+
+  .editor-actions {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .button {
+    width: 100%;
+    justify-content: center;
+  }
+}

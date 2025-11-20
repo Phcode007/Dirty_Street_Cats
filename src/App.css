@@ -1,0 +1,29 @@
+.app {
+  min-height: 100vh;
+  background-color: var(--color-bg-light);
+  color: var(--color-text-dark);
+  transition: all var(--transition-normal);
+}
+
+.main-content {
+  position: relative;
+  z-index: 1;
+}
+
+.floating-controls {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 100;
+}
+
+@media (max-width: 768px) {
+  .floating-controls {
+    bottom: 20px;
+    right: 20px;
+    gap: 8px;
+  }
+}

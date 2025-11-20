@@ -1,0 +1,16 @@
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  z-index: 9999;
+  transition: width 0.1s ease;
+}
+
+.progress-bar.dark {
+  background-color: #ffffff;
+}
+
+.progress-bar.light {
+  background-color: #000000;
+}

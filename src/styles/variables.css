@@ -1,0 +1,13 @@
+[data-theme="light"] {
+  --color-bg-light: #ffffff;
+  --color-bg-alt: #f5f5f5;
+  --color-text-dark: #000000;
+  --color-text-light: #ffffff;
+}
+
+[data-theme="dark"] {
+  --color-bg-light: #000000;
+  --color-bg-alt: #1a1a1a;
+  --color-text-dark: #ffffff;
+  --color-text-light: #000000;
+}

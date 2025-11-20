@@ -1,0 +1,113 @@
+.homepage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 100px var(--spacing-md) var(--spacing-xl);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.homepage::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle,
+    var(--color-tertiary) 0%,
+    transparent 70%
+  );
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.homepage-content {
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 1s ease;
+}
+
+.homepage-title {
+  font-size: clamp(48px, 10vw, 120px);
+  font-weight: 900;
+  letter-spacing: 5px;
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.homepage.dark .homepage-title {
+  text-shadow: 5px 5px 0px var(--color-tertiary),
+    10px 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+.homepage.light .homepage-title {
+  text-shadow: 5px 5px 0px #e0e0e0, 10px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.homepage-subtitle {
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 300;
+  letter-spacing: 3px;
+  margin-bottom: var(--spacing-xl);
+  opacity: 0.8;
+}
+
+.homepage-button {
+  padding: 18px 50px;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: var(--font-secondary);
+  border: 2px solid currentColor;
+  background-color: transparent;
+  color: inherit;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: var(--spacing-md);
+  transition: all var(--transition-normal);
+}
+
+.homepage-button:hover {
+  background-color: var(--color-text-dark);
+  color: var(--color-bg-light);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.homepage.dark .homepage-button:hover {
+  background-color: var(--color-text-light);
+  color: var(--color-primary);
+}
+
+.homepage-decorative-line {
+  width: 200px;
+  height: 2px;
+  background-color: currentColor;
+  margin: var(--spacing-xl) auto 0;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .homepage {
+    padding: 80px var(--spacing-md) var(--spacing-lg);
+  }
+
+  .homepage-title {
+    letter-spacing: 3px;
+  }
+
+  .homepage-subtitle {
+    letter-spacing: 2px;
+  }
+
+  .homepage-button {
+    padding: 15px 40px;
+    font-size: 16px;
+  }
+}
